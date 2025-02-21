@@ -28,6 +28,7 @@ const PathRoute =() => {
                     {/* 0. 관리자 , 회사, 유저에 관계없이 전체접근 가능 Components */}
                     <Route path="/" element={<Home/>  }/>
                     <Route path="/login" element={<Login setUser={setUser}/>  }/>
+
                     {/* 1. 관리자, 접근 가능 Components */}
                     <Route path="/company" element={   <ProtectedRoute allowedRoles={ [1] }>
                         <AdminPage user={user} />
