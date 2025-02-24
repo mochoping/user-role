@@ -75,21 +75,31 @@ const ProductSearch = () => {
 
         }
     }
+
+    const handleSug = (sugs) =>{
+        setKeyword(sugs);
+        setAdv(false);
+
+
+    }
     return (
         <div className="productsearch-container">
             <h2>상품 검색</h2>
+            <div>
             <input type={"text"}
                    value={keyword}
                    placeholder="검색할 상품명을 입력해주세요."
                    onFocus={()=>setAdv(true)}
-                   onChange={(e) => setKeyword(e.target.value)}/>
+                   onChange={(handleChange)}
+                   onBlur={ () => setTimeout( ()=> setAdv(false), 200)}
+            />
 
             {
                 adv && sugs.length > 0 && (
                     <ul>
                         {sugs.map(
                             (sugs,index) => (
-                                <li key={index}>
+                                <li key={index} onMouseDown={()=> handleSug(sugs)}>
                                     {sugs}
                                 </li>
                             )
@@ -98,7 +108,7 @@ const ProductSearch = () => {
                     </ul>
                 )
             }
-
+            </div>
             <button onClick={searchProducts}>검색</button>
 
             <ul>
