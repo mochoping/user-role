@@ -20,6 +20,8 @@ import PostList from "../pages/post/PostList";
 import SearchPost from "../pages/post/SearchPost";
 import InsertPost from "../pages/post/InsertPost";
 import PostDetail from "../pages/post/PostDetail";
+import UpdatePost from "../pages/post/UpdatePost";
+import Main from "../pages/boot-page/Main";
 
 const PathRoute =() => {
     const [user, setUser] = useState(null);
@@ -30,12 +32,16 @@ const PathRoute =() => {
                 {/*경로와 관계없는 jsx 파일은 Route 외부에 작성*/}
                 <Routes>
                     {/* 0. 관리자 , 회사, 유저에 관계없이 전체접근 가능 Components */}
-                    <Route path="/" element={<Home/>  }/>
+                    <Route path="/home" element={<Home/>  }/>
+                    <Route path="/" element={<Main/>  }/>
 
                     <Route path="/posts" element={<PostList/>}/>
                     <Route path="/posts/:postId" element={<PostDetail/>}/>
                     <Route path="/posts/search" element={<SearchPost/>}/>
                     <Route path="/posts/create" element={<InsertPost/>}/>
+
+                    {/*PostDetail 에서 수정버튼 내부 to 속성에 작성한 경로 값 설정*/}
+                    <Route path="/posts/edit/:postId" element={<UpdatePost/>}/>
 
 
                     <Route path="/login" element={<Login setUser={setUser}/>  }/>
