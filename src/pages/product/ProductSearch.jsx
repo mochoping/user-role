@@ -1,6 +1,7 @@
 import {useState} from "react";
 import axios from "axios";
 import './ProductSearch.css'
+import apiProductService from "./apiProductService";
 
 const ProductSearch = () => {
 // 검색 변수 이름
@@ -11,7 +12,7 @@ const ProductSearch = () => {
     //검색 자동 완성
     const [sugs,setSugs] = useState([]); //추천검색어 제안 리스트
     const [adv, setAdv] = useState(false);  // 빈값일 경우 제안하지 않음. 빈값이 아닐경우 제안 ok
-
+    const [err, setErr] = useState(null);
 
 
 
@@ -22,16 +23,7 @@ const ProductSearch = () => {
             alert("검색어를 입력하세요.")
             return
         }
-        axios
-            .get("http://localhost:8080/api/products/search?keyword="+keyword)
-            .then( (res)=>{
-                console.log(res)
-                setProducts(res.data)
-            })
-            .catch( (err)=>{
-                console.log(err)
-                alert("검색정보를 가져오는데 실패했습니다.")
-            })
+        apiProductService.getSuggestions(keyword,setSugs,setErr)
 
     }
 
@@ -85,6 +77,7 @@ const ProductSearch = () => {
     return (
         <div className="productsearch-container">
             <h2>상품 검색</h2>
+            {err && <p style={{color: "orange"}}>{err}</p>}
             <div>
             <input type={"text"}
                    value={keyword}

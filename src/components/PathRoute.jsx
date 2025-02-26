@@ -22,6 +22,10 @@ import InsertPost from "../pages/post/InsertPost";
 import PostDetail from "../pages/post/PostDetail";
 import UpdatePost from "../pages/post/UpdatePost";
 import Main from "../pages/boot-page/Main";
+import Navbar from "./Navbar";
+import ProductList from "../pages/product/ProductList";
+import ProductDetail from "../pages/product/ProductDetail";
+import ProductSearch from "../pages/product/ProductSearch";
 
 const PathRoute =() => {
     const [user, setUser] = useState(null);
@@ -30,6 +34,8 @@ const PathRoute =() => {
         return(
             <BrowserRouter>
                 {/*경로와 관계없는 jsx 파일은 Route 외부에 작성*/}
+                <Navbar/>
+                {/*네비게이션바 헤더 푸터의 경우 BrowserRouter 내부 Routes 외부에 작성 */}
                 <Routes>
                     {/* 0. 관리자 , 회사, 유저에 관계없이 전체접근 가능 Components */}
                     <Route path="/home" element={<Home/>  }/>
@@ -42,6 +48,13 @@ const PathRoute =() => {
 
                     {/*PostDetail 에서 수정버튼 내부 to 속성에 작성한 경로 값 설정*/}
                     <Route path="/posts/edit/:postId" element={<UpdatePost/>}/>
+
+                    {/*Product 경로 설정*/}
+                    <Route path="/products" element={<ProductList/>}/>
+                    <Route path="/products/:productId" element={<ProductDetail/>}/>
+                    <Route path="/products/search" element={<ProductSearch/>}/>
+
+
 
 
                     <Route path="/login" element={<Login setUser={setUser}/>  }/>

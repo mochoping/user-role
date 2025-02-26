@@ -3,6 +3,69 @@ import {Link, useNavigate, useParams} from "react-router-dom";
 import apiService from "./apiService";
 
 const PostDetail = () => {
+
+
+    const navigate = useNavigate();
+    const {postId} = useParams();
+    const[post,setPost] = useState(null);
+    const[err,setErr] = useState(null);
+
+    useEffect(() => {
+        apiService.getPostById(postId,setPost,setErr)
+    }, [postId]);
+
+
+    if(!post) {
+        return <p>게시물 불러오는 중입니다.</p>
+    }
+
+    const handleDelete = () => {
+        alert("알림메시지")
+        prompt("프롬프트", "이것은 기본값") // 기본값 생략가능
+        window.confirm("확인 혹은 취소");
+
+        if(window.confirm("정말 삭제하시겠습니까?")){
+            // deletePost 메서드 호출 후에 기능 실행
+            apiService.deletePost(postId);
+            navigate("/"); // 메인으로 이동하기
+        }
+
+    }
+    
+    return (
+        <section className="py-5">
+            <div className="container px-4 px-lg-5 my-5">
+                <div className="row gx-4 gx-lg-5 align-items-center">
+                    <div className="col-md-6">
+                        <img className="card-img-top mb-5 mb-md-0"
+                             src="https://dummyimage.com/600x700/dee2e6/6c757d.jpg" alt="..."/>
+                    </div>
+                    <div className="col-md-6">
+                        <div className="small mb-1">{post?.postTitle}</div>
+                        <h1 className="display-5 fw-bolder">Shop item template</h1>
+                        <div className="fs-5 mb-5">
+                            <span className="text-decoration-line-through">$45.00</span>
+                            <span>$40.00</span>
+                        </div>
+                        <p className="lead">
+                            {post?.postContent}
+                        </p>
+                        <div className="d-flex">
+                            <input className="form-control text-center me-3" id="inputQuantity" type="num" value="1"
+                                   style="max-width: 3rem"/>
+                            <Link to={`/posts/edit/${postId}`}>
+                                <button class="btn btn-outline-warning">수정</button>
+                            </Link>
+                            {/* ✅ 삭제 버튼 */}
+                            <button onClick={handleDelete} class="btn btn-outline-danger">삭제</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    )
+}
+const PostDetail2 = () => {
     /*
     기본 자바스크립트에서는 페이지를 이동할 때
     window.location.href("이동할경로") 로 페이지 이동
@@ -20,15 +83,15 @@ const PostDetail = () => {
      */
     const navigate = useNavigate();
     const {postId} = useParams();
-    const[post,setPost] = useState(null);
-    const[err,setErr] = useState(null);
+    const [post, setPost] = useState(null);
+    const [err, setErr] = useState(null);
 
     useEffect(() => {
-        apiService.getPostById(postId,setPost,setErr)
+        apiService.getPostById(postId, setPost, setErr)
     }, [postId]);
 
 
-    if(!post) {
+    if (!post) {
         return <p>게시물 불러오는 중입니다.</p>
     }
     /*
@@ -53,7 +116,7 @@ const PostDetail = () => {
         prompt("프롬프트", "이것은 기본값") // 기본값 생략가능
         window.confirm("확인 혹은 취소");
 
-        if(window.confirm("정말 삭제하시겠습니까?")){
+        if (window.confirm("정말 삭제하시겠습니까?")){
             // deletePost 메서드 호출 후에 기능 실행
             apiService.deletePost(postId);
             navigate("/"); // 메인으로 이동하기
