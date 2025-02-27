@@ -26,6 +26,10 @@ import Navbar from "./Navbar";
 import ProductList from "../pages/product/ProductList";
 import ProductDetail from "../pages/product/ProductDetail";
 import ProductSearch from "../pages/product/ProductSearch";
+import ClothesList from "../pages/clothes/ClothesList";
+import ClothesDetail from "../pages/clothes/ClothesDetail";
+import AddClothes from "../pages/clothes/AddClothes";
+import EditClothes from "../pages/clothes/EditClothes";
 
 const PathRoute =() => {
     const [user, setUser] = useState(null);
@@ -55,6 +59,12 @@ const PathRoute =() => {
                     <Route path="/products/search" element={<ProductSearch/>}/>
 
 
+                    {/*Clothes 경로 설정*/}
+                    <Route path="/closeList" element={<ClothesList />} />
+                    <Route path="/clothes" element={<ClothesList />} />
+                    <Route path="/clothes/:id" element={<ClothesDetail />} />
+                    <Route path="/clothes/add" element={<AddClothes />} />
+                    <Route path="/clothes/edit/:id" element={<EditClothes />} />
 
 
                     <Route path="/login" element={<Login setUser={setUser}/>  }/>

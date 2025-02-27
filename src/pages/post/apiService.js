@@ -94,15 +94,28 @@ const apiService = {
    //                PostDetail 에서 apiService를 호출하여 deletePost 기능을 실행했을 때 가져온 errorCallback
         // function (postId, callback, errorCallback) {
         function (postId, callback, errorCallback) {
-        axios.delete(`${API_POST_URL}/${postId}`)
-            .then((response) => {
-                callback(response.data)
-                alert("삭제완료");
-            })
-            .catch(error => { alert("백엔드에서 컨트롤러 연결에 실패했습니다.");
-                            console.error(" 프론트 앤드에서 확인할 에러 메세지")
-            });
-    },
+            axios
+                .delete(`${API_POST_URL}/${postId}`)
+                .then(
+                    (response) => {
+                        //  callback(response.data)
+                        alert(callback);
+                    }
+                )
+                .catch(
+                    // 백엔드에서 삭제가 불가능할 때
+                    // 알람으로
+                    // 백엔드에서 컨트롤러 연결에 실패하였습니다.
+
+                    error => {
+                        alert(errorCallback);
+                        //alert("백엔드에서 컨트롤러 연결에 실패하였습니다.");
+
+                        console.error("프론트엔드에서 확인할 에러 메세지 : ", error);
+                    }
+                )
+        },
+
 
     updatePost:
         function (postId, postData, callback, errorCallback)
