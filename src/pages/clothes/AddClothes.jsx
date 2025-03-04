@@ -31,7 +31,8 @@ const AddClothes = () => {
         }
            apiClothesService.insertClothes(formsetup)
 
-    }
+    };
+
 
     return (
         <div className="EditClothes-container">

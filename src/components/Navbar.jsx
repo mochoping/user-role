@@ -44,40 +44,57 @@ const Navbar = ({user}) => {
                                 <Link class="dropdown-item" to="/products/search">제품 검색</Link>
                             </ul>
                         </li>
-                        <li>
-                            {user?.role === 1 && ( <li className="nav-item"><Link class="nav-link" to="/admin"> 관리자 페이지</Link></li>)}
-                            {user?.role === 2 &&( <li className="nav-item"><Link class="nav-link" to="/company"> 관리자 페이지</Link></li>)}
-                            {user?.role === 3 &&( <li  className="nav-item"><Link class="nav-link" to="/user"> 관리자 페이지</Link></li>)}
 
-                            <a className="nav-link disabled" aria-disabled="true">Disabled</a>
+                        <li className="nav-item dropdown">
+                            <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                               aria-expanded="false">
+                                의류
+                            </a>
+                            <ul className="dropdown-menu">
+                                <Link class="dropdown-item" to="/clothesList">의류목록</Link>
+                                <Link class="dropdown-item" to="/">의류검색</Link>
+                                <Link class="dropdown-item" to="/clothes/add">의류 추가하기</Link>
+                            </ul>
                         </li>
+                            <li>
+                                {user?.role === 1 && (
+                                    <li className="nav-item"><Link class="nav-link" to="/admin"> 관리자 페이지</Link></li>)}
+                                {user?.role === 2 && (
+                                    <li className="nav-item"><Link class="nav-link" to="/company"> 관리자 페이지</Link></li>)}
+                                {user?.role === 3 && (
+                                    <li className="nav-item"><Link class="nav-link" to="/user"> 관리자 페이지</Link></li>)}
 
-                        {/*로그인 로그아웃 버튼*/}
-                        {
-                            user ? (
-                                <li className="nav-item">
-                                    <Link class="nav-link" to="/logout">로그아웃</Link>
-                                </li>
-                            ) : (
-                                <li className="nav-item">
-                                    <Link class="nav-link" to="/login">로그인</Link>
-                                </li>
-                            )
-                        }
+                                <a className="nav-link disabled" aria-disabled="true">Disabled</a>
+                            </li>
+
+                            {/*로그인 로그아웃 버튼*/}
+                            {
+                                user ? (
+                                    <li className="nav-item">
+                                        <Link class="nav-link" to="/logout">로그아웃</Link>
+                                    </li>
+                                ) : (
+                                    <li className="nav-item">
+                                        <Link class="nav-link" to="/login">로그인</Link>
+                                    </li>
+                                )
+                            }
                     </ul>
                     <form class="d-flex" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
+                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
                         <button class="btn btn-outline-success" type="submit">Search</button>
                     </form>
                 </div>
             </div>
         </nav>
 
-    )
+)
 }
 
 
-const Navbars = ({user}) => {
+const Navbars = ({
+    user
+}) => {
 
     return (
         <div className="Navbar-container">

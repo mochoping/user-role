@@ -3,7 +3,19 @@ import axios from 'axios';
 // API_URL 이름 사용 금지
 const API_URL = "http://localhost:8080/api/clothes";
 
+//자바스크립트 기능을 작성하겠다 이기 때문
 
+/*
+const 기능명칭 = {
+1번기능 :
+        function() {
+        },
+
+}
+export default 기능 명칭;
+기능 명칭.1번 기능();
+과 같이 사용 가능.
+ */
 const apiClothesService = {
 
 
@@ -29,8 +41,10 @@ const apiClothesService = {
             axios
                 .get(`http://localhost:8080/api/clothes/${clotheId}`)
                 .then(
-                    res=> setSuc(res.data)
-
+                    (res)=> {
+                        setSuc(res.data);
+                        console.log(res);
+                    }
                 )
                 .catch(
                     (err) => {
@@ -61,9 +75,9 @@ const apiClothesService = {
         },
 
     updateClothes:
-        function (clothesId,formdata,callback,callbackErr){
+        function (clothesId,postdata){
             axios
-                .put(`${API_URL}/${clothesId}`,formdata)
+                .put(`${API_URL}/${clothesId}`,postdata)
                 .then(
                     (res) => {
                         console.log(res.data)

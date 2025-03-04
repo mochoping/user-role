@@ -60,7 +60,7 @@ const PathRoute =() => {
 
 
                     {/*Clothes 경로 설정*/}
-                    <Route path="/closeList" element={<ClothesList />} />
+                    <Route path="/clothesList" element={<ClothesList />} />
                     <Route path="/clothes" element={<ClothesList />} />
                     <Route path="/clothes/:id" element={<ClothesDetail />} />
                     <Route path="/clothes/add" element={<AddClothes />} />

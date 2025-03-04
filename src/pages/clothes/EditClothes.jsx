@@ -1,132 +1,182 @@
-import {useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import apiClothesService from "./apiClothesService";
 import {useParams} from "react-router-dom";
 
 const EditClothes = () => {
     const{id} = useParams();
-    const[clothesForm, setClothesForm] = useState(null);
+    const[errm,setErrm] = useState(null);
+    const[suc,setSuc] = useState(null);
+    const[clothes,setclothes] = useState({
+                                                                            cname:'',
+                                                                            ccategory:'',
+                                                                            cbrand:'',
+                                                                            ccolor:'',
+                                                                            csize:'',
+                                                                            cmaterial:'',
+                                                                            cprice:0,
+                                                                            cstock:0,
+                                                                            cgender:'공용',
+                                                                            cseason:'사계절'
+                                                                            });
+    /*
     const[cname, setCname] = useState("으어어");
     const[ccategory, setCcategory] = useState("");
-    const[cbrand, setCbrand] = useState(null);
+    const[cbrand, setCbrand] = useState("");
     const[cseason, setCseason] = useState("사계절");
     const[cgender, setCgender] = useState("공용");
     const[cprice, setCprice] = useState(0);
     const[cstock, setCstock] = useState(0);
     const[csize, setCsize] = useState("");
     const[cmaterial, setCmaterial] = useState("");
+    const[ccolor, setCcolor] = useState("");
+    */
+    /*
+    useEffect(() => {
+        apiClothesService.getClothesById(id,setSuc,setErrm)
 
-    const handleEdit =() =>{
-        setClothesForm(cname+ccategory+cbrand+cseason+cgender+cprice+cstock+csize+cmaterial)
+        setCname(suc.cname)
+        setCcategory(suc.ccategory)
+        setCbrand(suc.cbrand)
+        setCcolor(suc.ccolor)
+        setCsize(suc.csize)
+        setCmaterial(suc.cmaterial)
+        setCprice(suc.cprice)
+        setCstock(suc.cstock)
+        setCgender(suc.cgender)
+        setCseason(suc.cseason)
 
-        let success
-        let err
-        apiClothesService.updateClothes(id,clothesForm,success,err)
-        if(success){
-            alert(success);
-        } else{
-            alert(err);
-        }
+
+    }, []);
+    */
+
+    const handleEdit =(event) =>{
+        event.preventDefault();
+        console.log(clothes)
+        console.log(id)
+        /*
+        const formsetup = {
+            cname:cname,
+            ccategory:ccategory,
+            cbrand:cbrand,
+            ccolor:ccolor,
+            csize:csize,
+            cmaterial:cmaterial,
+            cprice:cprice,
+            cstock:cstock,
+            cgender:cgender,
+            cseason:cseason}
+*/
+        apiClothesService.updateClothes(id,clothes)
+
     }
+
+
+    const handleInputChange = (value, event) =>{
+        setclothes((a) => ({
+                ...a,
+            [value]: event.target.value,
+        }) );
+    }
+        /* ref를 이용한 DOM 값의 직접적인 수정.
+    const cnameRef = useRef();
+    const ccategoryRef = useRef();
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        console.log("cname: " + cnameRef.current.value);
+        console.log("ccategory: " + ccategoryRef.current.value);
+    }
+    */
+
+    /* 자바스크립트 초기 배웠던 폼데이터 방식.
+    const handleSubmit = (e) => {
+    const formData = new FormData(e.target);
+    const cname= formData.get("cname");
+
+    const cgenderData = formData.getAll("cgender");
+    const cseasonData = formData.getAll("cseason");
+    const data = Object.fromEntries(formData.entries());
+    data.cgender = cgenderData;
+    data.cseason = cseasonData;
+    }
+    */
 
     return (
         <div className="EditClothes-container">
-            <label> 이름 : </label>
-            <input type={"text"}
-                   value={cname}
-                   placeholder={cname}
-                   onChange={(e) => {
-                       setCname(e.target.value)
-                   }}/>
-            <label> 카테고리 : </label>
-            <input type={"text"}
-                   value={ccategory}
-                   onChange={(e) => {
-                       setCcategory(e.target.value)
-                   }}/>
-            <label> 브랜드 : </label>
-            <input type={"text"}
-                   value={cbrand}
-                   onChange={(e) => {
-                       setCbrand(e.target.value)
-                   }}/>
-            <label> 시즌 : </label>
-            <label htmlFor={"season0"}> 사계절 </label>
-            <input hecked type={"radio"} name={"season"} id={"season0"} value={cseason} onClick={(e) => {
-                setCseason("사계절")
-            }}/>
-            <label htmlFor={"season1"}> 봄 </label>
-            <input type={"radio"} name={"season"} id={"season1"} value={cseason} onClick={(e) => {
-                setCseason("봄")
-            }}/>
-            <label htmlFor={"season2"}> 여름 </label>
-            <input type={"radio"} name={"season"} id={"season2"} value={cseason} onClick={(e) => {
-                setCseason("여름")
-            }}/>
-            <label htmlFor={"season3"}> 가을 </label>
-            <input type={"radio"} name={"season"} id={"season3"} value={cseason} onClick={(e) => {
-                setCseason("가을")
-            }}/>
-            <label htmlFor={"season4"}> 겨울 </label>
-            <input type={"radio"} name={"season"} id={"season4"} value={cseason} onClick={(e) => {
-                setCseason("겨울")
-            }}/>
+            <form>
+                <label> 이름 : </label>
+                <input type={"text"}
+                       value={clothes.cname}
+                       onChange={(e) => handleInputChange("cname",e)
+                       }/>
+                <label> 카테고리 : </label>
+                <input type={"text"}
+                       value={clothes.ccategory}
+                       onChange={(e) => handleInputChange("ccategory",e)
+                       }/>
+                <label> 브랜드 : </label>
+                <input type={"text"}
+                       value={clothes.cbrand}
+                       onChange={(e) => handleInputChange("cbrand",e)
+                       }/>
+                <label> 색상 : </label>
+                <input type={"text"}
+                       value={clothes.ccolor}
+                       onChange={(e) => handleInputChange("ccolor",e)
+                       }/>
+                <label> 시즌 : </label>
+                <select value={clothes.cseason}
+                        onChange={(e) => handleInputChange("cseason",e)
+                        }>
+                    <option value={"사계절"}>사계절</option>
+                    <option value={"봄"}>봄</option>
+                    <option value={"여름"}>여름</option>
+                    <option value={"가을"}>가을</option>
+                    <option value={"겨울"}>겨울</option>
+                </select>
 
-            <label> 성별 : </label>
+                <label> 성별 : </label>
 
-            <label htmlFor={"both"}> 공용 </label>
-            <input type={"radio"} name={"gender"} id={"both"} value={cgender} onClick={(e) => {
-                setCgender("공용")
-            }}/>
-            <label htmlFor={"male"}> 남성 </label>
-            <input type={"radio"} name={"gender"} id={"male"} value={cgender} onClick={(e) => {
-                setCgender("남성")
-            }}/>
-            <label htmlFor={"female"}> 여성 </label>
-            <input type={"radio"} name={"gender"} id={"female"} value={cgender} onClick={(e) => {
-                setCgender("여성")
-            }}/>
+                <select value={clothes.cgender}
+                        onChange={(e) => handleInputChange("cgender",e)
+                        }>
+                    <option value={"공용"}>공용</option>
+                    <option value={"남성"}>남성</option>
+                    <option value={"여성"}>여성</option>
 
-            <label> 가격 : </label>
-            <input type={"number"}
-                   value={cprice}
-                   onChange={(e) => {
-                       setCprice(e.target.value)
-                   }}/>
-            <label> 재고 : </label>
-            <input type={"number"}
-                   value={cstock}
-                   onChange={(e) => {
-                       setCstock(e.target.value)
-                   }}/>
-            <label> 사이즈 : </label>
-            <label htmlFor={"s"}> 스몰 </label>
-            <input type={"radio"} name={"size"} id={"s"} value={csize} onClick={(e) => {
-                setCsize("S")
-            }}/>
-            <label htmlFor={"m"}> 미디움 </label>
-            <input type={"radio"} name={"size"} id={"m"} value={csize} onClick={(e) => {
-                setCsize("M")
-            }}/>
-            <label htmlFor={"l"}> 라지 </label>
-            <input type={"radio"} name={"size"} id={"l"} value={csize} onClick={(e) => {
-                setCsize("L")
-            }}/>
-            <label htmlFor={"xl"}> 엑스라지 </label>
-            <input type={"radio"} name={"size"} id={"xl"} value={csize} onClick={(e) => {
-                setCsize("XL")
-            }}/>
-            <label htmlFor={"xxl"}> 투엑스라지 </label>
-            <input type={"radio"} name={"size"} id={"xxl"} value={csize} onClick={(e) => {
-                setCsize("XXL")
-            }}/>
-            <label> 소재 : </label>
-            <input type={"text"}
-                   value={cmaterial}
-                   onChange={(e) => {
-                       setCmaterial(e.target.value)
-                   }}/>
+                </select>
 
-            <button onClick={handleEdit}>수정하기</button>
+                <label> 가격 : </label>
+                <input type={"number"}
+                       value={clothes.cprice}
+                       onChange={(e) => handleInputChange("cprice",e)
+                       }/>
+                <label> 재고 : </label>
+                <input type={"number"}
+                       value={clothes.cstock}
+                       onChange={(e) =>handleInputChange("cstock",e)
+                       }/>
+                <label> 사이즈 : </label>
+
+                <select value={clothes.csize}
+                        onChange={(e) => handleInputChange("csize",e)
+                        }>
+                    <option value={"S"}>스몰</option>
+                    <option value={"M"}>미디움</option>
+                    <option value={"L"}>라지</option>
+                    <option value={"XL"}>엑스라지</option>
+                    <option value={"XXL"}>투엑스라지</option>
+
+                </select>
+
+                <label> 소재 : </label>
+                <input type={"text"}
+                       value={clothes.cmaterial}
+                       onChange={(e) => handleInputChange("cmaterial",e)
+                       }/>
+
+                <button onClick={handleEdit}>등록하기</button>
+            </form>
         </div>
     )
 }

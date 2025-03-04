@@ -35,7 +35,7 @@ const ClothesDetail = () => {
 
     return (
         <div className="ClothesDetail-container">
-            {<p style={{color: "red"}}>errm</p>}
+            {<p style={{color: "red"}}>{errm}</p>}
             <p> 이름 : {clothes.cname}</p>
     <p> 카테고리 : {clothes.ccategory}</p>
     <p> 시즌 : {clothes.cseason}</p>
