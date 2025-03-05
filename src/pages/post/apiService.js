@@ -22,10 +22,10 @@ const apiService = {
                     .get(API_POST_URL)
                     .then(
                         (res) => {
-
-                            if (res.data >0) { // 데이터가 1개 이상 존재하기 때문에 데이터 보여주기
+                            console.log(res.data)
+                            if (res.data.length > 0) { // 데이터가 1개 이상 존재하기 때문에 데이터 보여주기
                                 setPost(res.data)
-
+                                console.log(res.data)
                             }else { // 데이터가 없어서 데이터 없음 표시
                                 alert("백엔드에서 가져올 수 있는 데이터가 없습니다.")
                             }
@@ -35,6 +35,7 @@ const apiService = {
                         (err)=> {
                             alert("게시물을 불러오는 중 오류가 발생했습니다.")
                             setErr(err);
+                            console.log(err);
                         }
                     )
 

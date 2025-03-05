@@ -18,7 +18,8 @@ const PostList = () => {
 
 
     useEffect(() => {// 페이지 로드시 자동 실행
-        apiService.getAllPosts(setPosts,setErr)}, []);
+        apiService.getAllPosts(setPosts,setErr);
+    }, []);
 
 
     /*
@@ -64,6 +65,8 @@ const PostList = () => {
     }
 */
 
+
+
     function handleChange(e){
         setKeyword(e.target.value)
         apiService.suggestedPosts(keyword,setGoodsug)
@@ -83,6 +86,21 @@ const PostList = () => {
         setKeyword(sug);
         setScope(false);
     }
+    /*
+        onBlur      =  입력 필드에서 포커스가 벗어날 때 실행되는 이벤트
+                        input 에서 작성하던 중 마우스로 input 태그가 아닌 다른 곳을 클릭했을 경우
+                        200(0.2초) 후에 키워드에 따른 추천검색리스트 제안을 종료(setTimeout)
+        onBlur={() => setTimeout(() => setShow(false), 200)
+
+
+        onMouseDown = 마우스를 클릭하는 순간 실행되는 이벤트(동작, 행위)
+                      사용자가 추천 검색어를 클릭할 경우 추천 검색어 리스트가 onBlur 로 인해 사라지고
+                        마우스 클릭을 누르는 순간 제안한 리스트 중에서 사용자가 선택한 제안을
+                        키워드 내부로 들어갈 수 있도록 설정
+
+        onMouseDown={() => handleSug(sug)}
+
+    * */
 
 
 

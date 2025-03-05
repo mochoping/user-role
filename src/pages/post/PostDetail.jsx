@@ -52,7 +52,7 @@ const PostDetail = () => {
                         </p>
                         <div className="d-flex">
                             <input className="form-control text-center me-3" id="inputQuantity" type="num" value="1"
-                                   style="max-width: 3rem"/>
+                                   style={{maxWidth: 3 + 'rem'}}/>
                             <Link to={`/posts/edit/${postId}`}>
                                 <button class="btn btn-outline-warning">수정</button>
                             </Link>
