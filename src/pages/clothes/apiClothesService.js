@@ -25,6 +25,7 @@ const apiClothesService = {
                 .get(API_URL)
                 .then(
                     (res) => {
+                        console.log(res.data)
                         setSuc(res.data)
                     }
                 )

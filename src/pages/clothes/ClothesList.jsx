@@ -1,6 +1,8 @@
 import {useEffect, useState} from "react";
 import apiClothesService from "./apiClothesService";
 import {Link, useNavigate} from "react-router-dom";
+import ClothesCard from "./ClothesCard";
+import HorizentalCMenu from "./HorizentalCMenu";
 
 const ClothesList = () => {
     const [clothes, setClothes] = useState([]);
@@ -39,37 +41,77 @@ const ClothesList = () => {
                     </li>
                     </ul>
                 </div>
-     */
 
 
-
-    return (
-        <div className={"row"}>
-
-            {clothes.map((clothes) =>
-                (
-                    <div class="col mb-5" key={clothes.cid}>
-                        <div class="card h-100">
-                            <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg"
+  <div className="col mb-5" key={clothes.cid}>
+                        <div className="card h-100">
+                            <img className="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg"
                                  alt="Fancy Product"/>
-                            <div class="card-body p-4 text-center">
-                                <h5 class="fw-bolder">
+                            <div className="card-body p-4 text-center">
+                                <h5 className="fw-bolder">
                                     <Link to={`/clothes/${clothes.cid}`}>
-                                    <p class="text-decoration-none">{clothes.cname}</p>
+                                        <p className="text-decoration-none">{clothes.cname}</p>
                                     </Link>
                                 </h5>
                                 {clothes.cprice.toLocaleString()}원
                             </div>
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center">
-                                    <button class="btn btn-outline-dark mt-auto" onClick={handleDelete}>삭제</button>
+                            <div className="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                <div className="text-center">
+                                    <button className="btn btn-outline-dark mt-auto" onClick={handleDelete}>삭제</button>
                                 </div>
                             </div>
                         </div>
                     </div>
+
+
+     */
+    /*
+    const handleRow = () =>{
+        if(barrel === "col-4 mb-5"){
+            setBarrel("col-12 mb-5")
+        } else {
+            setBarrel("col-4 mb-5")
+        }
+
+
+    }
+    */
+    const [barrel, setBarrel] = useState(true);
+
+
+    const handleRow = () =>{
+
+        if(barrel){
+            setBarrel(false)
+
+        } else {
+            setBarrel(true)
+
+        }
+
+    }
+    return (
+        <>
+            <HorizentalCMenu/>
+
+
+        <div className={"row"} style={{justifyContent:"space-around"}}>
+            <p class="col-1">{clothes.length}개</p>
+            <button class={"col-1"} onClick={handleRow}>{barrel ? "3열 보기":"1열 보기"}</button>
+        <div className={"row"}>
+
+            {clothes.map((clothes) =>
+                (
+                  <ClothesCard  key={clothes.cid}
+                                {...clothes}
+                                cprice={clothes.cprice.toLocaleString()}
+                                handleDelete={handleDelete}
+                                barrel={barrel}/>
                 ))
             }
         </div>
+        </div>
+        </>
     )
 }
 

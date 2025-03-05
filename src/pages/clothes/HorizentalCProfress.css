@@ -1,0 +1,12 @@
+.container {
+    width: 100%;
+    background: #ccc;
+    position: fixed;
+    width: 100%;
+
+    .progress {
+        height: 8px;
+        background: blue;
+        width: 0%;
+    }
+}
