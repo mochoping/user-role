@@ -30,6 +30,7 @@ import ClothesList from "../pages/clothes/ClothesList";
 import ClothesDetail from "../pages/clothes/ClothesDetail";
 import AddClothes from "../pages/clothes/AddClothes";
 import EditClothes from "../pages/clothes/EditClothes";
+import ProductUpdate from "../pages/product/ProductUpdate";
 
 const PathRoute =() => {
     const [user, setUser] = useState(null);
@@ -57,6 +58,7 @@ const PathRoute =() => {
                     <Route path="/products" element={<ProductList/>}/>
                     <Route path="/products/:productId" element={<ProductDetail/>}/>
                     <Route path="/products/search" element={<ProductSearch/>}/>
+                    <Route path="/products/edit/:productId" element={<ProductUpdate/>}/>
 
 
                     {/*Clothes 경로 설정*/}

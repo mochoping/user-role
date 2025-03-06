@@ -73,7 +73,7 @@ const EditClothes = () => {
 
     const handleInputChange = (value, event) =>{
         setclothes((a) => ({
-                ...a,
+                ...a, // 함수형 업데이트? 동기적으로 사용하기 위해 작성?
             [value]: event.target.value,
         }) );
     }

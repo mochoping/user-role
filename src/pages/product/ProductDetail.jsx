@@ -1,20 +1,21 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import axios from "axios";
 import apiProductService from "./apiProductService";
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 
 
 const ProductDetail = () => {
 
     const {productId} =useParams();
     //제품 아이디 변수 이름
+    const navigate = useNavigate();
     const [quantity, setQuantity] = useState(1);
     //제품 정보 변수 이름
     const [product, setProduct] = useState(null);
     const [err, setErr] = useState(null);
 
 
-    const getProductDetail = () => {
+    useEffect(() => {
 
         if (!productId.trim()) { // trim() 왼쪽 오른쪽 공백 제거
             alert("상품 ID를 입력하세요.");
@@ -22,6 +23,14 @@ const ProductDetail = () => {
         }
         apiProductService.getProductById(productId, setProduct, setErr);
 
+    }, []);
+
+    const handleDelete = () =>{
+        apiProductService.deleteProduct(productId,navigate)
+    }
+
+    const handleEdit = () =>{
+    navigate(`/products/edit/${productId}`)
     }
 
     return (
@@ -43,9 +52,37 @@ const ProductDetail = () => {
                             <span className="text-decoration-line-through">
                                 {(product?.productPrice * 1.3).toLocaleString()}원
                             </span>
-                            <span>{product?.productPrice}</span>
+                            <span>{product?.productPrice.toLocaleString()}원</span>
                         </div>
-                        <p className="lead">{product?.productDescription.toLocaleString()}원</p>
+                        <p className="lead">{product?.productDescription}</p>
+                        <div className="d-flex">
+                            <div className="fs-5 mb-5">
+                                <span>{product?.productStock}</span>
+                            </div>
+                            {/*
+                            리액트의 경우
+                            style 태그를 직접적으로 작성 XX
+                            style = "max-width: 3rem"  를
+                            style={{maxWidth: "3rem"}} 와 같이 변형해서 작성
+                            */}
+                            <input className="form-control text-center me-3"
+                                   id="inputQuantity"
+                                   type="num"
+                                   value={quantity}
+                                   onChange={(e) => setQuantity(e.target.value)}
+                                   style={{maxwidth: "3rem"}}/>
+                            <button className="btn btn-outline-danger flex-shrink-0"
+                                    type="button"
+                            >
+
+                                <i className="bi-cart-fill me-1"></i>
+
+                                Add to cart
+
+                            </button>
+
+                        </div>
+
                         <div className="d-flex">
                             <div className="fs-5 mb-5">
                                 <span>{product?.productStock}</span>
@@ -63,13 +100,25 @@ const ProductDetail = () => {
                                    onChange={(e) => setQuantity(e.target.value)}
                                    style={{maxwidth: "3rem"}}/>
 
-                            <button className="btn btn-outline-danger flex-shrink-0"
+
+                            <button className="btn btn-outline-warning flex-shrink-0"
                                     type="button"
-                                    >
+                                    onClick={handleDelete}
+                            >
 
                                 <i className="bi-cart-fill me-1"></i>
 
-                                Add to cart
+                                삭제
+
+                            </button>
+                            <button className="btn btn-outline-success flex-shrink-0"
+                                    type="button"
+                                    onClick={handleEdit}
+                            >
+
+                                <i className="bi-cart-fill me-1"></i>
+
+                                수정
 
                             </button>
 

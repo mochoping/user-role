@@ -3,6 +3,7 @@ import apiClothesService from "./apiClothesService";
 import {Link, useNavigate} from "react-router-dom";
 import ClothesCard from "./ClothesCard";
 import HorizentalCMenu from "./HorizentalCMenu";
+import HorizentalCMenu2 from "./HorizentalCMenu2";
 
 const ClothesList = () => {
     const [clothes, setClothes] = useState([]);
@@ -92,7 +93,8 @@ const ClothesList = () => {
     }
     return (
         <>
-            <HorizentalCMenu/>
+
+            <HorizentalCMenu2/>
 
 
         <div className={"row"} style={{justifyContent:"space-around"}}>

@@ -1,0 +1,36 @@
+/* 기본 구조 */
+.wrap {margin:50px auto;}
+
+/* 가로 스크롤 적용 */
+
+.scroll__wrap {overflow-x:auto; overflow-y: hidden;  white-space:nowrap; font-size:0}
+.scrollElement {display:inline-block; width:150px; height:150px; border:2px solid #222; background:#fff; font-size:16px; line-height:150px; text-align:center;}
+.scrollElement + .scrollElement {margin-left:15px;}
+
+/* 돌려서 스크롤 실패
+.scroll__wrap {overflow-y: scroll; font-size:0; transform: rotate(-90deg) }
+.scrollElement {transform: rotate(90deg); width:150px; height:150px; border:2px solid #222; background:#fff; font-size:16px; line-height:150px; text-align:center;}
+.scrollElement + .scrollElement {margin-left:15px;}
+*/
+
+/*
+
+white-space:nowrap 부모요소가 해당속성으로 줄바꿈 제어,
+        white-space: 텍스트의 공백(스페이스, 탭 등)과 줄바꿈을 어떻게 처리할지 결정하는 속성.
+        nowrap: 텍스트가 한 줄로 유지되도록 강제하고, 자동 줄바꿈을 막음.
+        줄바꿈 문자 무시
+
+overflow-x:auto; 속성 가로 스크롤 추가
+
+display:inline-block 요소 = 한줄표시
+
+*/
+
+/*스크롤바 없애기*/
+.scroll__wrap{
+    -ms-overflow-style: none;       /* 인터넷 익스플로러 */
+    scrollbar-width: none;          /* 파이어폭스 */
+}
+.scroll__wrap::-webkit-scrollbar{   /* 크롬, 사파리, 오페라, 엣지 */
+    display: none;
+}
